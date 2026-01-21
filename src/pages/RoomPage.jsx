@@ -33,7 +33,13 @@ export default function RoomPage() {
         const fetchRooms = async () => {
             try {
                 setLoading(true);
-                const res = await roomApi.searchRooms(filters);
+
+                // 🔥 Clean filter
+                const cleanedFilters = Object.fromEntries(
+                    Object.entries(filters).filter(([_, v]) => v !== "" && v !== null)
+                );
+
+                const res = await roomApi.searchRooms(cleanedFilters);
                 setRooms(res.data);
             } catch (err) {
                 console.error("Lỗi tải phòng:", err);
@@ -41,6 +47,7 @@ export default function RoomPage() {
                 setLoading(false);
             }
         };
+
         if (Object.keys(filters).length > 0) fetchRooms();
     }, [filters]);
 
