@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-    baseURL: "https://ralphhomeapi.onrender.com", // backend URL
+    baseURL: "https://ralphhomeapi.onrender.com/api", // backend URL
     headers: {
         "Content-Type": "application/json",
     },
