@@ -46,15 +46,28 @@ export default function RoomSearchForm({ onSearch, initialFilters = {}, inline =
         setFilters({ ...filters, [e.target.name]: e.target.value });
     };
 
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+
+    //     // 👉 Gửi query sang RoomPage
+    //     const params = new URLSearchParams(filters);
+    //     navigate(`/rooms?${params.toString()}`);
+
+    //     if (onSearch) onSearch(filters);
+    // };
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // 👉 Gửi query sang RoomPage
-        const params = new URLSearchParams(filters);
+        const cleanedFilters = Object.fromEntries(
+            Object.entries(filters).filter(([_, v]) => v !== "" && v !== null)
+        );
+
+        const params = new URLSearchParams(cleanedFilters);
         navigate(`/rooms?${params.toString()}`);
 
-        if (onSearch) onSearch(filters);
+        if (onSearch) onSearch(cleanedFilters);
     };
+
 
     return (
         <form
